@@ -85,75 +85,7 @@
     <a id="template2"></a>
     <a id="template" target="_blank">Steam link</a>
     <script type="text/javascript">
-      
-      function initSearch() {
-        document.getElementById("info").innerHTML = '<h1>Searching for "' + $("#search-text").val() + '" 100 results</h1>';
-        //$("#info").append('<h1>Searching for "' + $("#search-text").val() + '" 100 results</h1>');
-        var lookFor;
-        lookFor = $("#search-text").val();
-        var url = "https://api.steampowered.com/ISteamApps/GetAppList/v2/?key=FBE137D7F9891331E38F1AEF8B394271&format=json";  
-        $.ajax({
-          url: url,
-          method: 'GET',
-          data: {
-            "$limit" : 100
-          }
-        }).done(function(result) {
-        //console.log(result);
 
-        // loop through array of results
-          $.each(result.applist, function(i,v) {
-              
-              var i = 0;
-              var j = 0;
-              var endpt = v.length;
-              db.games.toArray(function(stuff) {
-                while(i < endpt && j < 100){
-                  //console.log(v[i]);
-                  if(v[i].name.includes(lookFor)){
-                    var url2="https://store.steampowered.com/app/"
-                    url2 += v[i].appid + "/" + v[i].name + "/"
-                    var clone = $("#template").clone();
-                    var clone2 = $("#template2").clone();
-                    var clone3 = $("#template3").clone();
-                    clone.attr("id",v[i].name);
-                    clone2.attr("id",v[i].name);
-                    clone3.attr("id",v[i].appid);
-                    clone3.attr("name",v[i].name);
-                    clone.attr("href", url2);
-                    var b;
-                    var c = v[i].appid;
-                    //console.log("b" + v[i].appid);
-                    for (b = 0; b < stuff.length; b++){
-                      //console.log("7");
-                      //console.log("i" + c);
-                      //console.log("v" + stuff[b].id);
-                      if(v[i].appid==(stuff[b].id)){
-                        //console.log("7");
-                        clone3.attr("class","mdc-icon-button mdc-icon-button--on");
-                      };
-                    };
-                    $(clone2).append(v[i].name)
-                    //$(clone2).append(v[i].appid)
-                    $("#info").append(clone2);
-                    $("#info").append(clone);
-                    $("#info").append(clone3);
-                    $("#info").append('<br>');
-                    j++;
-                  }
-                  i++;
-                }
-                window.mdc.autoInit();
-              });
-              //window.mdc.autoInit();
-          });
-            
-        }).fail(function(err) {
-          throw err;
-        });
-          
-      }
-      
     </script>
     <script type="text/javascript">
 
@@ -166,24 +98,10 @@
       // initializes all elements with the data-mdc-auto-init attribute
       window.mdc.autoInit();
         
-        /*
-      $("button").on("click", function(e) {
-          if ($(this).find("i.mdc-icon-button__icon--on").css("display") == "none") {
-            //console.log(listinfo[this.id]);
-            console.log("7");
-            //db.library.delete(listinfo[this.id]);
-          } else {
-            //db.library.put({info:listinfo[this.id],xCoord:xlist[this.id],yCoord:ylist[this.id]});
-          }
-        });
-        //window.mdc.autoInit();
-*/
-      // creating a var reference just to save code later
-
-
-      // when menu icon is click, toggle drawer open property
-      
-      $("#buttonSearch").on("click", initSearch)
+      $("#buttonSearch").on("click", function(){
+          $( "#currentPage" ).load( "page2.html" );
+          //initSearch();
+      });
       
         
       $("#home").on("click", function(){
