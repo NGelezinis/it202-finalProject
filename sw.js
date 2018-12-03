@@ -1,6 +1,6 @@
-var CACHE_NAME = 'my-site-cache-v1';
+var CACHE_NAME = 'ngelez2-final';
 var urlsToCache = [
-  'it202-finalProject.html', 'home.html', 'page1.html', 'page2.html',
+  '/it202-finalProject.html', '/home.html', '/page1.html', '/page2.html'
 ];
 
 self.addEventListener('install', function(event) {
