@@ -14,6 +14,8 @@
       #template {display:none;}
       #template2 {display:none;}
       #template3 {display:none;}
+      #save {display:none;}
+      $mdc-theme-secondary: #000000;
     </style>
       
     <script>
@@ -34,27 +36,27 @@
     <header class="mdc-top-app-bar">
       <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section" role="toolbar">
-          <button type="button" id="home">Home</button> 
+          <button type="button" id="home" class="mdc-button mdc-button--unelevated">Home</button> 
           <button type="button" id="page1">Page1</button> 
-          <button type="button" id="page2">Page2</button> 
+          <button type="button" id="page3">Page1</button>
+          <span class="mdc-list-item__meta material-icons">
+            <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+              <input class="mdc-text-field__input" type="text" id="search-text">
+              <label for="input" class="mdc-floating-label">Search</label>
+              <div class="mdc-line-ripple"></div>
+            </div>
+            <button type="button" id = "buttonSearch" class="mdc-button mdc-button--unelevated">submit</button>
+          </span>
         </section>
       </div>
     </header>
     <div class="mdc-top-app-bar--fixed-adjust"><div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <p id="demo"></p>
 
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     
     <div id="currentPage" href=""></div>
-        
-    <div class="mdc-text-field">
-      <input type="text" id="search-text" class="mdc-text-field__input">
-      <label class="mdc-floating-label" for="my-text-field">Search</label>
-      <div class="mdc-line-ripple"></div>
-    </div>
-    <button type="button" id = "buttonSearch" class="mdc-button">submit</button>
         
     <div id="info">
         
@@ -72,21 +74,25 @@
           function fav(num, word, pressed) {
             if($("#" + num).find("i.mdc-icon-button__icon--on").css("display") == "none"){
               db.games.put({id:num,name:word});
-              //console.log(num);
             }
             else{
               db.games.delete(num);
-              //console.log(word);
             }
           }
         </script>
         
-    <p id="save"></p>
-    <a id="template2"></a>
-    <a id="template" target="_blank">Steam link</a>
+    <button value="eu4" id="save"></button>
+    <button type="button" id = "template2" class="mdc-button mdc-button--outlined" onclick="toVids(id)">></button>
+        <script>
+          function toVids(word) {
+              document.getElementById("save").value = word;
+              $( "#currentPage" ).load( "page1.html" );
+          }
+        </script>
+    <a id="template" target="_blank"></a>
     <script type="text/javascript">
-
     </script>
+        
     <script type="text/javascript">
 
 
@@ -107,16 +113,15 @@
       $("#home").on("click", function(){
         $( "#currentPage" ).load( "home.html" );
       });
-        
+        /*
       $("#page1").on("click", function(){
         $( "#currentPage" ).load( "page1.html" );
       });
-        
-      $("#page2").on("click", function(){
-        $( "#currentPage" ).load( "page2.html" );
+      $("#page3").on("click", function(){
+        $( "#currentPage" ).load( "page3.html" );
       });
-
       //$( "#currentPage" ).load( $(this).attr("data-page") );
+      //*/
 
 
     })

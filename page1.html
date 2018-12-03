@@ -1,38 +1,43 @@
-  <script>
-    //$("button").on("click", function(){
-      document.getElementById("info").innerHTML = '<h1>Favorites:</h1>';
-      db.games.count(function(sizeoftable) {
-        if(sizeoftable){
-          //console.log("3");
-          db.games.toArray(function(stuff) {
-            var b;
-            for (b = 0; b < stuff.length; b++){
-              console.log("7")
-              var url2="https://store.steampowered.com/app/"
-              url2 += stuff[b].id + "/" + stuff[b].name + "/"
-              var clone = $("#template").clone();
-              var clone2 = $("#template2").clone();
-              var clone3 = $("#template3").clone();
-              clone.attr("id",stuff[b].id);
-              clone2.attr("id",stuff[b].id);
-              clone3.attr("id",stuff[b].id);
-              clone3.attr("name",stuff[b].name);
-              clone.attr("href", url2);
-              clone3.attr("class","mdc-icon-button mdc-icon-button--on");
-              $(clone2).append(stuff[b].name)
-              $("#info").append(clone2);
-              $("#info").append(clone);
-              $("#info").append(clone3);
-              $("#info").append('<br>');
-              };
-            window.mdc.autoInit();
-          });
-          
-        }
-        else{
-          document.getElementById("info").innerHTML = '<h1>No apps saved to favorites</h1>';
-        };
+    <script type="text/javascript">
+        $(document).ready(function () {
+        console.log(document.getElementById("save").value);
+        document.getElementById("info").innerHTML = '<h1>Videos:</h1>';
+        var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=" + document.getElementById("save").value + "&&key=AIzaSyAdfRuXA5OguTSq6Q4idd9_56_or5F1vWw";  
+        $.ajax({
+          url: url,
+          method: 'GET',
+          data: {
+            "$limit" : 100
+          }
+        }).done(function(result) {
+        //console.log(result);
+
+        // loop through array of results
+          $.each(result.items, function(i,v) {
+              //console.log(v.id.videoId);
+              //console.log(v.snippet.title);
+              //console.log(v.snippet.channelId);
+              //console.log(v.snippet.channelTitle);
+                var url2 = "https://www.youtube.com/watch?v=" + v.id.videoId;
+                var url3 = "https://www.youtube.com/channel/" + v.snippet.channelId;
+                var clone2 = $("#template").clone();
+                clone2.attr("id",v.snippet.title);
+                $(clone2).append(v.snippet.title);
+                clone2.attr("href", url2);
+                var clone4 = $("#template").clone();
+                $(clone4).append(v.snippet.channelTitle);
+                clone4.attr("id",v.snippet.channelId);
+                clone4.attr("href", url3);
+                $("#info").append(clone2);
+                $("#info").append('<br>');
+                $("#info").append(clone4);
+                $("#info").append('<br>');
+                $("#info").append('<br>');
               
-      });
-    //});
-  </script>
+          });
+            
+        }).fail(function(err) {
+          throw err;
+        });
+        });
+    </script>

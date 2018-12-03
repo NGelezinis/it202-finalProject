@@ -37,17 +37,13 @@
                     clone.attr("href", url2);
                     var b;
                     var c = v[i].appid;
-                    //console.log("b" + v[i].appid);
                     for (b = 0; b < stuff.length; b++){
-                      //console.log("7");
-                      //console.log("i" + c);
-                      //console.log("v" + stuff[b].id);
                       if(v[i].appid==(stuff[b].id)){
-                        //console.log("7");
                         clone3.attr("class","mdc-icon-button mdc-icon-button--on");
                       };
                     };
                     $(clone2).append(v[i].name)
+                    $(clone).append("Steam link")
                     //$(clone2).append(v[i].appid)
                     $("#info").append(clone2);
                     $("#info").append(clone);
